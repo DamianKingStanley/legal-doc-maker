@@ -11,7 +11,7 @@ const FAQSection: React.FC = () => {
   return (
     <section className="py-20 bg-gray-100 text-center">
       <div className="container mx-auto px-6">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-12">
+        <h2 className="text-2xl text-black md:text-3xl font-semibold mb-12">
           Frequently Asked Questions
         </h2>
         <div className="space-y-6">

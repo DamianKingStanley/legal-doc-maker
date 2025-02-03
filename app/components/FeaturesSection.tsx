@@ -4,7 +4,7 @@ import { FaRocket, FaCheckCircle, FaUser } from "react-icons/fa";
 
 const FeaturesSection: React.FC = () => {
   return (
-    <section className="py-20 bg-gray-100 text-center">
+    <section className="py-20 text-black bg-gray-100 text-center">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-semibold mb-12 text-gray-800">
           Our Key Features
@@ -17,7 +17,7 @@ const FeaturesSection: React.FC = () => {
             <div className="text-center mb-4">
               <FaRocket className="text-5xl text-blue-600" />
             </div>
-            <h3 className="text-xl font-semibold mb-4">
+            <h3 className="text-xl text-black font-semibold mb-4">
               Fast Document Creation
             </h3>
             <p className="text-gray-600">
@@ -26,7 +26,7 @@ const FeaturesSection: React.FC = () => {
             </p>
           </div>
           <div
-            className=" feature-card p-8 bg-white shadow-lg rounded-xl transform transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+            className=" feature-card p-8 bg-white text-black shadow-lg rounded-xl transform transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             data-aos="fade-up"
             data-aos-delay="200"
           >
@@ -40,7 +40,7 @@ const FeaturesSection: React.FC = () => {
             </p>
           </div>
           <div
-            className="feature-card p-8 bg-white shadow-lg rounded-xl transform transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+            className="feature-card p-8 bg-white text-black shadow-lg rounded-xl transform transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             data-aos="fade-up"
             data-aos-delay="400"
           >
