@@ -56,14 +56,14 @@ export default function GenerateDocument() {
       {/* Generated Document (Centered) */}
       <div className="flex-1 flex items-center justify-center p-4 overflow-y-auto">
         {document && (
-          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-2xl">
+          <div className="bg-white text-black p-4 rounded-lg shadow-lg w-full max-w-2xl">
             <div className="flex items-start space-x-2">
               <div className="flex-shrink-0">
                 <div className="w-8 h-8 bg-[#2C3E50] rounded-full flex items-center justify-center text-white font-bold">
                   AI
                 </div>
               </div>
-              <div className="bg-gray-50 p-3 rounded-lg max-w-[80%]">
+              <div className="bg-gray-50 text-black p-3 rounded-lg max-w-[80%]">
                 <pre className="whitespace-pre-wrap break-words">
                   {document}
                 </pre>
@@ -77,7 +77,7 @@ export default function GenerateDocument() {
       <div className="p-4 shadow-lg">
         <div className="max-w-2xl mx-auto">
           <select
-            className="w-full h-50  p-2 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full h-50 text-black p-2 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={selectedTemplate}
             onChange={(e) => setSelectedTemplate(e.target.value)}
           >
@@ -93,7 +93,7 @@ export default function GenerateDocument() {
             placeholder="Provide additional details (e.g., names, dates, terms)"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
-            className="w-full p-2 border rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 border text-black rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             rows={4}
           />
 
