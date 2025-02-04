@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // If using Next.js
 import axios from "axios";
+// import fileDownload from "js-file-download";
 
 const legalDocuments = [
   "Non-Disclosure Agreement",
@@ -19,25 +21,50 @@ const legalDocuments = [
 export default function GenerateDocument() {
   const [selectedTemplate, setSelectedTemplate] = useState("");
   const [userInput, setUserInput] = useState("");
-  const [document, setDocument] = useState("");
+  const [generatedDocument, setGeneratedDocument] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter(); // Next.js router for redirection
+
+  const [isGenerated, setIsGenerated] = useState(false); // Track if document is generated
+
+  const handleDownloadDoc = () => {
+    const blob = new Blob([generatedDocument], { type: "application/msword" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${selectedTemplate}.doc`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+  // Check if the user is logged in
+  useEffect(() => {
+    const token = localStorage.getItem("LegalDoc-token");
+    if (!token) {
+      router.push("/login"); // Redirect to login page if not logged in
+    }
+  }, [router]);
 
   const handleGenerate = async () => {
     try {
       setIsLoading(true);
+      setErrorMessage(""); // Clear previous errors
       const token = localStorage.getItem("LegalDoc-token");
       if (!token) {
-        console.error("User not authenticated");
+        setErrorMessage("User not authenticated. Please log in.");
         return;
       }
+
       const { data } = await axios.post(
         "/api/documents/generate",
         { template: selectedTemplate, userInput },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setDocument(data.document);
-    } catch (error) {
-      console.error("Error generating document:", error);
+      setGeneratedDocument(data.document);
+      setIsGenerated(true);
+    } catch {
+      setErrorMessage("Failed to generate document. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -53,9 +80,17 @@ export default function GenerateDocument() {
         </p>
       </div>
 
+      {/* Error Message Display */}
+      {errorMessage && (
+        <div className="bg-red-500 text-white p-2 text-center">
+          {errorMessage}
+        </div>
+      )}
+
       {/* Generated Document (Centered) */}
+      {/* Generated Document */}
       <div className="flex-1 flex items-center justify-center p-4 overflow-y-auto">
-        {document && (
+        {isGenerated && (
           <div className="bg-white text-black p-4 rounded-lg shadow-lg w-full max-w-2xl">
             <div className="flex items-start space-x-2">
               <div className="flex-shrink-0">
@@ -63,11 +98,29 @@ export default function GenerateDocument() {
                   AI
                 </div>
               </div>
-              <div className="bg-gray-50 text-black p-3 rounded-lg max-w-[80%]">
-                <pre className="whitespace-pre-wrap break-words">
-                  {document}
-                </pre>
-              </div>
+              {/* Editable Textarea */}
+              <textarea
+                className="w-full bg-gray-50 p-3 rounded-lg border text-black"
+                rows={10}
+                value={generatedDocument}
+                onChange={(e) => setGeneratedDocument(e.target.value)}
+              />
+            </div>
+
+            {/* Buttons */}
+            <div className="mt-4 flex space-x-2">
+              <button
+                onClick={handleGenerate}
+                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+              >
+                Regenerate
+              </button>
+              <button
+                onClick={handleDownloadDoc}
+                className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+              >
+                Download .DOC
+              </button>
             </div>
           </div>
         )}

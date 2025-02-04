@@ -10,28 +10,46 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage(""); // Reset error message before new request
+
     try {
       const { data } = await axios.post("/api/auth/login", { email, password });
-      localStorage.setItem("LegalDoc-token", data.token);
       router.push("/generate-doc");
-    } catch (error) {
-      console.error(error);
+      localStorage.setItem("LegalDoc-token", data.token);
+    } catch (error: unknown) {
+      console.error("Login error:", error);
+      if (axios.isAxiosError(error) && error.response) {
+        setErrorMessage(
+          error.response.data?.error ||
+            "An unexpected error occurred. Please try again."
+        );
+      } else {
+        setErrorMessage("An unexpected error occurred. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white">
-      <div className=" shadow-lg rounded-xl p-8 w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen bg-white text-black">
+      <div className="shadow-lg rounded-xl p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
           Login
         </h2>
+
+        {/* Error Message Display */}
+        {errorMessage && (
+          <div className="mb-4 text-red-600 bg-red-100 p-3 rounded-lg text-center">
+            {errorMessage}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Email Input */}
