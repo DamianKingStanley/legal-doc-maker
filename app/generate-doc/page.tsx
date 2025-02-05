@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation"; // If using Next.js
 import axios from "axios";
-// import fileDownload from "js-file-download";
+import SignatureCanvas from "react-signature-canvas";
+import DocumentHistorySidebar from "../components/DocumentHistorySidebar";
 
 const legalDocuments = [
   "Non-Disclosure Agreement",
@@ -24,13 +25,41 @@ export default function GenerateDocument() {
   const [generatedDocument, setGeneratedDocument] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const router = useRouter(); // Next.js router for redirection
+  const [isGenerated, setIsGenerated] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [signature, setSignature] = useState<string | null>(null);
+  const sigCanvas = useRef<SignatureCanvas>(null);
 
-  const [isGenerated, setIsGenerated] = useState(false); // Track if document is generated
+  const router = useRouter();
 
   const handleDownloadDoc = () => {
-    const blob = new Blob([generatedDocument], { type: "application/msword" });
+    if (!generatedDocument) {
+      alert("No document to download!");
+      return;
+    }
+
+    const docContent = `
+      <html xmlns:o='urn:schemas-microsoft-com:office:office' 
+            xmlns:w='urn:schemas-microsoft-com:office:word' 
+            xmlns='http://www.w3.org/TR/REC-html40'>
+        <head><meta charset='utf-8'><title>${selectedTemplate}</title></head>
+        <body>
+          <h2>${selectedTemplate}</h2>
+          <div>${generatedDocument}</div>
+          ${
+            signature
+              ? `<img src="${signature}" alt="Signature" width="200px" height="100px"/>`
+              : ""
+          }
+        </body>
+      </html>
+    `;
+
+    const blob = new Blob(["\ufeff", docContent], {
+      type: "application/msword",
+    });
     const url = URL.createObjectURL(blob);
+
     const a = document.createElement("a");
     a.href = url;
     a.download = `${selectedTemplate}.doc`;
@@ -38,18 +67,11 @@ export default function GenerateDocument() {
     a.click();
     document.body.removeChild(a);
   };
-  // Check if the user is logged in
-  useEffect(() => {
-    const token = localStorage.getItem("LegalDoc-token");
-    if (!token) {
-      router.push("/login"); // Redirect to login page if not logged in
-    }
-  }, [router]);
 
   const handleGenerate = async () => {
     try {
       setIsLoading(true);
-      setErrorMessage(""); // Clear previous errors
+      setErrorMessage("");
       const token = localStorage.getItem("LegalDoc-token");
       if (!token) {
         setErrorMessage("User not authenticated. Please log in.");
@@ -70,25 +92,50 @@ export default function GenerateDocument() {
     }
   };
 
+  const handleSaveSignature = () => {
+    if (sigCanvas.current) {
+      const signatureData = sigCanvas.current
+        .getTrimmedCanvas()
+        .toDataURL("image/png");
+      setSignature(signatureData);
+    }
+  };
+
+  const handleClearSignature = () => {
+    if (sigCanvas.current) {
+      sigCanvas.current.clear();
+    }
+    setSignature(null);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("LegalDoc-token");
+    if (!token) {
+      router.push("/login");
+    }
+  }, [router]);
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* Header */}
-      <div className="bg-[#2C3E50] text-white p-4">
+      <DocumentHistorySidebar
+        id="document-history-sidebar"
+        isOpen={isSidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        onOpen={() => setSidebarOpen(true)}
+      />
+      <div className="bg-[#2C3E50] text-white text-center p-4">
         <h1 className="text-xl font-bold">Legal Document Generator</h1>
         <p className="text-sm">
           Generate professional legal documents in seconds
         </p>
       </div>
 
-      {/* Error Message Display */}
       {errorMessage && (
         <div className="bg-red-500 text-white p-2 text-center">
           {errorMessage}
         </div>
       )}
 
-      {/* Generated Document (Centered) */}
-      {/* Generated Document */}
       <div className="flex-1 flex items-center justify-center p-4 overflow-y-auto">
         {isGenerated && (
           <div className="bg-white text-black p-4 rounded-lg shadow-lg w-full max-w-2xl">
@@ -98,7 +145,6 @@ export default function GenerateDocument() {
                   AI
                 </div>
               </div>
-              {/* Editable Textarea */}
               <textarea
                 className="w-full bg-gray-50 p-3 rounded-lg border text-black"
                 rows={10}
@@ -107,7 +153,6 @@ export default function GenerateDocument() {
               />
             </div>
 
-            {/* Buttons */}
             <div className="mt-4 flex space-x-2">
               <button
                 onClick={handleGenerate}
@@ -122,11 +167,41 @@ export default function GenerateDocument() {
                 Download .DOC
               </button>
             </div>
+            <div className="mt-6 flex flex-col items-center w-full max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
+              <h2 className="text-lg font-bold text-gray-800 mb-3">
+                Add Your Signature
+              </h2>
+
+              {/* Signature Canvas */}
+              <div className="w-full border border-gray-300 rounded-lg overflow-hidden">
+                <SignatureCanvas
+                  ref={sigCanvas}
+                  canvasProps={{
+                    className: "signature-canvas bg-gray-100 w-full h-40",
+                  }}
+                />
+              </div>
+
+              {/* Buttons */}
+              <div className="mt-4 flex w-full justify-between">
+                <button
+                  onClick={handleSaveSignature}
+                  className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-all"
+                >
+                  Save Signature
+                </button>
+                <button
+                  onClick={handleClearSignature}
+                  className="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-all ml-2"
+                >
+                  Clear Signature
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
 
-      {/* Input Form (Fixed at Bottom) */}
       <div className="p-4 shadow-lg">
         <div className="max-w-2xl mx-auto">
           <select
@@ -153,7 +228,7 @@ export default function GenerateDocument() {
           <button
             onClick={handleGenerate}
             disabled={isLoading || !selectedTemplate}
-            className="w-full bg-[#2C3E50] text-white p-2 rounded-md hover:bg-blue-700 disabled:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-[#2C3E50] text-white p-2 rounded-md hover:bg-blue-950 disabled:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {isLoading ? (
               <div className="flex items-center justify-center">
