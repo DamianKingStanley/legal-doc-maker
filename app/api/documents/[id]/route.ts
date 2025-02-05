@@ -1,14 +1,15 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/app/lib/db";
 import Document from "@/src/models/Document";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  context: { params: { id: string } }
 ) {
   await connectToDatabase();
 
-  const { id } = params;
+  const { id } = context.params; // Use context.params instead of { params }
+
   try {
     const document = await Document.findById(id);
     if (!document) {
