@@ -11,7 +11,7 @@ const FeaturesSection: React.FC = () => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div
-            className="feature-card p-8 bg-white shadow-lg rounded-xl transform transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
+            className="feature-card p-8 bg-white  transform transition-transform duration-500 hover:scale-105 hover:shadow-2xl"
             data-aos="fade-up"
           >
             <div className="text-center mb-4">
