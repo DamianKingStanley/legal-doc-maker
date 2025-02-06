@@ -2,22 +2,27 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/app/lib/db";
 import Document from "@/src/models/Document";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(req: NextRequest) {
   try {
     await connectToDatabase();
 
-    // Get the document ID from params
-    const { id } = params;
+    // Get the document ID from the URL
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "Document ID is required" },
+        { status: 400 }
+      );
+    }
 
     // Fetch the document by ID
     const document = await Document.findById(id);
 
     if (!document) {
       return NextResponse.json(
-        { error: "Documents not found" },
+        { error: "Document not found" },
         { status: 404 }
       );
     }
