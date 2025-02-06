@@ -39,8 +39,8 @@ export default function Login() {
   };
 
   return (
-    <div className="flex  min-h-screen py-10 bg-white text-black">
-      <div className="shadow-lg rounded-xl p-8 w-full max-w-md">
+    <div className="flex  justify-center min-h-screen py-10 bg-white text-black">
+      <div className="shadow-lg h-fit rounded-xl p-8 w-full max-w-md">
         <h2 className="text-2x1 text-gray-800 text-center mb-6">
           Sign In to Continue
         </h2>

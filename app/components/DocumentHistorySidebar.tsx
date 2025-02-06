@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { X, Menu } from "lucide-react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 interface DocumentHistorySidebarProps {
   isOpen: boolean;
@@ -23,7 +23,7 @@ export default function DocumentHistorySidebar({
   onOpen,
 }: DocumentHistorySidebarProps) {
   const [documents, setDocuments] = useState<Document[]>([]);
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
     async function fetchDocuments() {
@@ -76,10 +76,10 @@ export default function DocumentHistorySidebar({
           ) : (
             <ul>
               {documents.map((doc) => (
-                <li key={doc._id} className="p-3 border-b">
+                <li key={doc._id} className="p-3 border-b text-left">
                   <h3
-                    className="font-semibold cursor-pointer text-sm"
-                    onClick={() => router.push(`/singledocument?id=${doc._id}`)}
+                    className="font-semibold cursor-pointer text-sm text-black"
+                    // onClick={() => router.push(`/singledocument?id=${doc._id}`)}
                   >
                     {doc.template}
                   </h3>
