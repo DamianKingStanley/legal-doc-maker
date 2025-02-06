@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { X, Loader2 } from "lucide-react";
 
@@ -10,7 +10,7 @@ interface Document {
   createdAt: string;
 }
 
-export default function DocumentDetailPage() {
+function DocumentDetailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const docId = searchParams.get("id"); // ✅ Correct way in App Router
@@ -117,5 +117,13 @@ export default function DocumentDetailPage() {
         Download as DOCX
       </button>
     </div>
+  );
+}
+
+export default function DocumentDetailPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DocumentDetailContent />
+    </Suspense>
   );
 }
