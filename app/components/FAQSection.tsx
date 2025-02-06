@@ -9,7 +9,7 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section className="py-20 bg-gray-100 text-center">
+    <section className="py-20 bg-gray-100 text-black">
       <div className="container mx-auto px-6">
         <h2 className="text-2xl text-black md:text-3xl font-semibold mb-12">
           Frequently Asked Questions
@@ -19,8 +19,8 @@ const FAQSection: React.FC = () => {
             className="faq-item bg-white p-6 shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
             onClick={() => toggleAccordion(0)}
           >
-            <h4 className="text-xl font-semibold mb-4 text-gray-800">
-              Is this service legally valid?
+            <h4 className="text-sm md:text-xl font-semibold mb-4 text-gray-800">
+              Is this service legally valid? {activeIndex === 0 ? "▼" : "▲"}
             </h4>
             {activeIndex === 0 && (
               <p className="text-gray-600">
@@ -33,13 +33,14 @@ const FAQSection: React.FC = () => {
             className="faq-item bg-white p-6 shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
             onClick={() => toggleAccordion(1)}
           >
-            <h4 className="text-xl font-semibold mb-4 text-gray-800">
-              Can I cancel my subscription anytime?
+            <h4 className="text-sm md:text-xl font-semibold mb-4 text-gray-800">
+              Can I cancel my subscription anytime?{" "}
+              {activeIndex === 1 ? "▼" : "▲"}
             </h4>
             {activeIndex === 1 && (
               <p className="text-gray-600">
-                Yes, you can cancel your subscription anytime from your account
-                settings.
+                You may decide not to renew your subscription with us after. But
+                for the current subscription, you cannot cancel it.
               </p>
             )}
           </div>
@@ -47,13 +48,45 @@ const FAQSection: React.FC = () => {
             className="faq-item bg-white p-6 shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
             onClick={() => toggleAccordion(2)}
           >
-            <h4 className="text-xl font-semibold mb-4 text-gray-800">
-              Are the documents customizable?
+            <h4 className="text-sm md:text-xl font-semibold mb-4 text-gray-800">
+              Are the documents customizable? {activeIndex === 2 ? "▼" : "▲"}
             </h4>
             {activeIndex === 2 && (
               <p className="text-gray-600">
                 Yes, you can customize each document by adding your own clauses
                 and details.
+              </p>
+            )}
+          </div>
+
+          <div
+            className="faq-item bg-white p-6 shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
+            onClick={() => toggleAccordion(3)}
+          >
+            <h4 className="text-sm md:text-xl font-semibold mb-4 text-gray-800">
+              What happens if I forget to renew my subscription?{" "}
+              {activeIndex === 3 ? "▼" : "▲"}
+            </h4>
+            {activeIndex === 3 && (
+              <p className="text-gray-600">
+                If you forget to renew, your subscription will expire, and you
+                will lose access to premium features until you renew it.
+              </p>
+            )}
+          </div>
+
+          <div
+            className="faq-item bg-white p-6 shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
+            onClick={() => toggleAccordion(5)}
+          >
+            <h4 className="text-sm md:text-xl font-semibold mb-4 text-gray-800">
+              Can I get a refund if I&apos;m not satisfied?{" "}
+              {activeIndex === 5 ? "▼" : "▲"}
+            </h4>
+            {activeIndex === 5 && (
+              <p className="text-gray-600">
+                Refunds are available within 30 days of purchase, depending on
+                the specific terms and conditions of your subscription.
               </p>
             )}
           </div>

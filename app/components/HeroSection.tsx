@@ -13,13 +13,13 @@ const HeroSection: React.FC = () => {
         {/* Left Side - Text & Button */}
         <div className="lg:w-1/2 text-left">
           <h1 className="text-5xl font-bold text-white leading-tight mb-6">
-            AI Legal Document Generator
+            AI Legal Document Creator
           </h1>
           <p className="text-xl text-gray-300 mb-8">
-            Effortlessly generate tailored legal documents in minutes using the
-            power of AI.
+            Effortlessly create legal documents in seconds using the power of
+            AI.
           </p>
-          <p className="text-sm text-gray-200 mb-6">
+          <p className="text-lg text-gray-200 mb-6">
             Whether you&apos;re drafting contracts, agreements, or other legal
             papers, our AI technology makes it fast, easy, and accurate.
           </p>
@@ -28,7 +28,7 @@ const HeroSection: React.FC = () => {
             className="bg-blue-600 text-white px-8 py-4 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
             onClick={() => (window.location.href = "/generate-doc")}
           >
-            Generate Document
+            Create Document
           </button>
         </div>
       </div>

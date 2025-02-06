@@ -6,6 +6,7 @@ export interface IUser extends Document {
   password: string;
   documentCount: number;
   isSubscribed: boolean;
+  subscriptionPlan: "Free" | "Premium" | "Enterprise";
 }
 
 const UserSchema: Schema = new Schema({
@@ -14,6 +15,11 @@ const UserSchema: Schema = new Schema({
   password: { type: String, required: true },
   documentCount: { type: Number, default: 0 },
   isSubscribed: { type: Boolean, default: false },
+  subscriptionPlan: {
+    type: String,
+    enum: ["Free", "Premium", "Enterprise"],
+    default: "Free",
+  },
 });
 
 export default mongoose.models.User ||

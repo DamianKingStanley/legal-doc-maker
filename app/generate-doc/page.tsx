@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // If using Next.js
 import axios from "axios";
-import SignatureCanvas from "react-signature-canvas";
 import DocumentHistorySidebar from "../components/DocumentHistorySidebar";
 
 const legalDocuments = [
@@ -17,6 +16,29 @@ const legalDocuments = [
   "Business Partnership Agreement",
   "Loan Agreement",
   "Service Agreement",
+  "Non-Compete Agreement",
+  "Service Agreement",
+  "Consulting Agreement",
+  "Independent Contractor Agreement",
+  "Sales Agreement",
+  "Non-Disclosure Agreement",
+  "Employment Contract",
+  "Offer Letter",
+  "Employee Handbook",
+  "Severance Agreement",
+  "Non-Solicitation Agreement",
+  "Service Agreement",
+  "Lease Agreement",
+  "Sublease Agreement",
+  "Eviction Notice",
+  "Property Sale Agreement",
+  "Last Will and Testament",
+  "Living Will",
+  "Prenuptial Agreement",
+  "Child Custody Agreement",
+  "Lease Agreement",
+  "Affidavit",
+  "Divorce Settlement",
 ];
 
 export default function GenerateDocument() {
@@ -25,41 +47,14 @@ export default function GenerateDocument() {
   const [generatedDocument, setGeneratedDocument] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
   const [isGenerated, setIsGenerated] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [signature, setSignature] = useState<string | null>(null);
-  const sigCanvas = useRef<SignatureCanvas>(null);
-
-  const router = useRouter();
+  const [userPlan, setUserPlan] = useState("");
 
   const handleDownloadDoc = () => {
-    if (!generatedDocument) {
-      alert("No document to download!");
-      return;
-    }
-
-    const docContent = `
-      <html xmlns:o='urn:schemas-microsoft-com:office:office' 
-            xmlns:w='urn:schemas-microsoft-com:office:word' 
-            xmlns='http://www.w3.org/TR/REC-html40'>
-        <head><meta charset='utf-8'><title>${selectedTemplate}</title></head>
-        <body>
-          <h2>${selectedTemplate}</h2>
-          <div>${generatedDocument}</div>
-          ${
-            signature
-              ? `<img src="${signature}" alt="Signature" width="200px" height="100px"/>`
-              : ""
-          }
-        </body>
-      </html>
-    `;
-
-    const blob = new Blob(["\ufeff", docContent], {
-      type: "application/msword",
-    });
+    const blob = new Blob([generatedDocument], { type: "application/msword" });
     const url = URL.createObjectURL(blob);
-
     const a = document.createElement("a");
     a.href = url;
     a.download = `${selectedTemplate}.doc`;
@@ -68,6 +63,24 @@ export default function GenerateDocument() {
     document.body.removeChild(a);
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("LegalDoc-token");
+    if (!token) {
+      router.push("/login");
+    } else {
+      axios
+        .get("/api/user/subscription", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          setUserPlan(response.data.subscriptionPlan);
+        })
+        .catch(() => {
+          setErrorMessage("Failed to fetch user data.");
+        });
+    }
+  }, [router]);
+
   const handleGenerate = async () => {
     try {
       setIsLoading(true);
@@ -75,6 +88,8 @@ export default function GenerateDocument() {
       const token = localStorage.getItem("LegalDoc-token");
       if (!token) {
         setErrorMessage("User not authenticated. Please log in.");
+        router.push("/login");
+
         return;
       }
 
@@ -92,28 +107,9 @@ export default function GenerateDocument() {
     }
   };
 
-  const handleSaveSignature = () => {
-    if (sigCanvas.current) {
-      const signatureData = sigCanvas.current
-        .getTrimmedCanvas()
-        .toDataURL("image/png");
-      setSignature(signatureData);
-    }
-  };
-
-  const handleClearSignature = () => {
-    if (sigCanvas.current) {
-      sigCanvas.current.clear();
-    }
-    setSignature(null);
-  };
-
-  useEffect(() => {
-    const token = localStorage.getItem("LegalDoc-token");
-    if (!token) {
-      router.push("/login");
-    }
-  }, [router]);
+  // Determine which templates to show based on the user's plan
+  // const availableDocuments =
+  //   userPlan === "Free" ? legalDocuments.slice(0, 5) : legalDocuments;
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -123,19 +119,24 @@ export default function GenerateDocument() {
         onClose={() => setSidebarOpen(false)}
         onOpen={() => setSidebarOpen(true)}
       />
+      {/* Header */}
       <div className="bg-[#2C3E50] text-white text-center p-4">
-        <h1 className="text-xl font-bold">Legal Document Generator</h1>
-        <p className="text-sm">
-          Generate professional legal documents in seconds
+        <h1 className="text-xl font-bold text-right">
+          Legal Document Generator
+        </h1>
+        <p className="text-sm text-right">
+          Generate legal documents in seconds
         </p>
       </div>
 
+      {/* Error Message Display */}
       {errorMessage && (
         <div className="bg-red-500 text-white p-2 text-center">
           {errorMessage}
         </div>
       )}
 
+      {/* Generated Document (Centered) */}
       <div className="flex-1 flex items-center justify-center p-4 overflow-y-auto">
         {isGenerated && (
           <div className="bg-white text-black p-4 rounded-lg shadow-lg w-full max-w-2xl">
@@ -145,6 +146,7 @@ export default function GenerateDocument() {
                   AI
                 </div>
               </div>
+              {/* Editable Textarea */}
               <textarea
                 className="w-full bg-gray-50 p-3 rounded-lg border text-black"
                 rows={10}
@@ -153,6 +155,7 @@ export default function GenerateDocument() {
               />
             </div>
 
+            {/* Buttons */}
             <div className="mt-4 flex space-x-2">
               <button
                 onClick={handleGenerate}
@@ -167,41 +170,11 @@ export default function GenerateDocument() {
                 Download .DOC
               </button>
             </div>
-            <div className="mt-6 flex flex-col items-center w-full max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-              <h2 className="text-lg font-bold text-gray-800 mb-3">
-                Add Your Signature
-              </h2>
-
-              {/* Signature Canvas */}
-              <div className="w-full border border-gray-300 rounded-lg overflow-hidden">
-                <SignatureCanvas
-                  ref={sigCanvas}
-                  canvasProps={{
-                    className: "signature-canvas bg-gray-100 w-full h-40",
-                  }}
-                />
-              </div>
-
-              {/* Buttons */}
-              <div className="mt-4 flex w-full justify-between">
-                <button
-                  onClick={handleSaveSignature}
-                  className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-all"
-                >
-                  Save Signature
-                </button>
-                <button
-                  onClick={handleClearSignature}
-                  className="flex-1 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-all ml-2"
-                >
-                  Clear Signature
-                </button>
-              </div>
-            </div>
           </div>
         )}
       </div>
 
+      {/* Input Form (Fixed at Bottom) */}
       <div className="p-4 shadow-lg">
         <div className="max-w-2xl mx-auto">
           <select
@@ -210,11 +183,23 @@ export default function GenerateDocument() {
             onChange={(e) => setSelectedTemplate(e.target.value)}
           >
             <option value="">Select a Legal Document</option>
-            {legalDocuments.map((doc, index) => (
-              <option key={index} value={doc}>
-                {doc}
-              </option>
-            ))}
+            {legalDocuments.map((doc, index) => {
+              // Append "- Subscribe to access" to locked documents
+              const displayText =
+                userPlan === "Free" && index >= 5
+                  ? `${doc} - Subscribe to access`
+                  : doc;
+
+              return (
+                <option
+                  key={index}
+                  value={doc}
+                  disabled={userPlan === "Free" && index >= 5}
+                >
+                  {displayText}
+                </option>
+              );
+            })}
           </select>
 
           <textarea

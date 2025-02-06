@@ -1,27 +1,31 @@
-// import { NextRequest, NextResponse } from "next/server";
-// import { connectToDatabase } from "@/app/lib/db";
-// import Document from "@/src/models/Document";
+import { NextRequest, NextResponse } from "next/server";
+import { connectToDatabase } from "@/app/lib/db";
+import Document from "@/src/models/Document";
 
-// export async function GET(
-//   req: NextRequest,
-//   context: { params: { id: string } }
-// ) {
-//   await connectToDatabase();
+export async function GET(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  try {
+    await connectToDatabase();
 
-//   const { id } = context.params; // Use context.params instead of { params }
+    // Ensure params is awaited properly
+    const params = await context.params;
+    const { id } = params;
 
-//   try {
-//     const document = await Document.findById(id);
-//     if (!document) {
-//       return NextResponse.json(
-//         { error: "Document not found" },
-//         { status: 404 }
-//       );
-//     }
+    // Fetch the document by ID
+    const document = await Document.findById(id);
 
-//     return NextResponse.json({ document }, { status: 200 });
-//   } catch (error) {
-//     console.error("Error fetching document:", error);
-//     return NextResponse.json({ error: "Server error" }, { status: 500 });
-//   }
-// }
+    if (!document) {
+      return NextResponse.json(
+        { error: "Document not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ document }, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching document:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}

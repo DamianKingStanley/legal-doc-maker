@@ -30,7 +30,7 @@ const Contact = () => {
 
     setStatus("Sending...");
 
-    const res = await fetch("http://localhost:3000/api/contact", {
+    const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -47,6 +47,60 @@ const Contact = () => {
 
   return (
     <section className="contact bg-gray-50 py-12">
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg mx-auto">
+        <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+          Send Us a Message
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-gray-700 font-medium">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200"
+              placeholder="Enter your name"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 font-medium">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200"
+              placeholder="Enter your email"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 font-medium">Message</label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              required
+              rows={5}
+              className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200"
+              placeholder="Write your message"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+          >
+            Send Message
+          </button>
+        </form>
+        {status && (
+          <p className="mt-4 text-center text-lg font-medium text-gray-700">
+            {status}
+          </p>
+        )}
+      </div>
       <div className="container mx-auto px-6 md:px-12 py-8">
         <h1 className="text-4xl font-semibold text-gray-800 text-center mb-8">
           Contact Us
@@ -100,61 +154,6 @@ const Contact = () => {
               </a>
             </div>
           </div>
-        </div>
-
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg mx-auto">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-            Send Us a Message
-          </h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-gray-700 font-medium">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200"
-                placeholder="Enter your name"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-medium">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200"
-                placeholder="Enter your email"
-              />
-            </div>
-            <div>
-              <label className="block text-gray-700 font-medium">Message</label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={5}
-                className="w-full mt-1 p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200"
-                placeholder="Write your message"
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-            >
-              Send Message
-            </button>
-          </form>
-          {status && (
-            <p className="mt-4 text-center text-lg font-medium text-gray-700">
-              {status}
-            </p>
-          )}
         </div>
       </div>
     </section>

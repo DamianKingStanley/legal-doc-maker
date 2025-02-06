@@ -11,6 +11,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "@next/font": "^14.2.15",
+    "@stripe/stripe-js": "^5.6.0",
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
     "docxtemplater": "^3.59.0",
@@ -43,6 +44,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-signature-canvas": "^1.0.6",
+    "@types/stripe": "^8.0.417",
     "autoprefixer": "^10.4.20",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",

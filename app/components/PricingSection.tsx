@@ -19,9 +19,9 @@ const PricingSection: React.FC = () => {
               Access to basic templates and limited features.
             </p>
             <div className="flex flex-col items-center">
-              <span className="text-3xl font-bold mb-6">$0/month</span>
+              <span className="text-3xl font-bold mb-6">NGN0/month</span>
               <button className="bg-blue-600 text-white px-6 py-3 rounded-lg mt-6">
-                <Link href="/login"> Sign Up</Link>
+                <Link href="/generate-doc"> Generate</Link>
               </button>
             </div>
           </div>
@@ -35,9 +35,9 @@ const PricingSection: React.FC = () => {
               Unlimited document generation with advanced features.
             </p>
             <div className="flex flex-col items-center">
-              <span className="text-3xl font-bold mb-6">$4.99/month</span>
+              <span className="text-3xl font-bold mb-6">$1/month</span>
               <button className="bg-blue-600 text-white px-6 py-3 rounded-lg mt-6">
-                <Link href="/login"> Subscribe</Link>
+                <Link href="/subscription"> Subscribe</Link>
               </button>
             </div>
           </div>
@@ -51,9 +51,9 @@ const PricingSection: React.FC = () => {
               For businesses with large-scale document needs.
             </p>
             <div className="flex flex-col items-center">
-              <span className="text-3xl font-bold mb-6">$10.99/month</span>
+              <span className="text-3xl font-bold mb-6">$10/year</span>
               <button className="bg-blue-600 text-white px-6 py-3 rounded-lg mt-6">
-                Contact Sales
+                <Link href="/subscription"> Subscribe</Link>
               </button>
             </div>
           </div>

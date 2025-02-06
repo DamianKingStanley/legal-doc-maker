@@ -12,8 +12,8 @@ const Footer: React.FC = () => {
           <div className="w-full md:w-1/4 mb-8 text-center md:text-left">
             <h2 className="text-3xl font-bold text-white">AI Legal Docs</h2>
             <p className="mt-4 text-gray-400">
-              Effortlessly generate tailored legal documents with AI.
-              Simplifying legal work for businesses and individuals alike.
+              Effortlessly create legal documents with AI. Simplifying legal
+              work for businesses and individuals alike.
             </p>
           </div>
 

@@ -25,11 +25,24 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  if (user.documentCount >= 50 && !user.isSubscribed) {
+  // Check document limits based on subscription plan
+  if (user.subscriptionPlan === "Free" && user.documentCount >= 10) {
     return NextResponse.json(
-      { error: "Subscribe to generate more documents" },
+      { error: "Upgrade to Premium or Enterprise to generate more documents" },
       { status: 403 }
     );
+  }
+
+  if (user.subscriptionPlan === "Premium" && user.documentCount >= 50) {
+    return NextResponse.json(
+      { error: "Upgrade to Enterprise plan for unlimited document generation" },
+      { status: 403 }
+    );
+  }
+
+  // No document limit for Enterprise users
+  if (user.subscriptionPlan === "Enterprise") {
+    // No check on document count for Enterprise users
   }
 
   const { template, userInput } = body;
@@ -49,8 +62,11 @@ export async function POST(req: Request) {
 
     await newDocument.save();
 
-    user.documentCount += 1;
-    await user.save();
+    // Increment document count for non-Enterprise users
+    if (user.subscriptionPlan !== "Enterprise") {
+      user.documentCount += 1;
+      await user.save();
+    }
 
     return NextResponse.json({ document: generatedDoc }, { status: 200 });
   } catch (error) {

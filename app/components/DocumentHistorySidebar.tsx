@@ -48,7 +48,7 @@ export default function DocumentHistorySidebar({
       {!isOpen && (
         <button
           onClick={onOpen}
-          className="fixed top-5 left-1  text-white p-2  shadow-lg z-50"
+          className="fixed top-20 bg-transparent left-1 text-white p-2  shadow-lg z-50"
         >
           <Menu className="w-6 h-6" />
         </button>
@@ -61,7 +61,7 @@ export default function DocumentHistorySidebar({
         } z-50 md:w-96`}
       >
         <div className="p-4 border-b flex justify-between items-center bg-gray-100">
-          <h2 className="text-lg font-semibold">Document History</h2>
+          <h2 className="text-sm md:text-lg font-semibold">Document History</h2>
           <button
             onClick={onClose}
             className="p-1 hover:bg-gray-200 rounded-full"
@@ -78,7 +78,7 @@ export default function DocumentHistorySidebar({
               {documents.map((doc) => (
                 <li key={doc._id} className="p-3 border-b">
                   <h3
-                    className="font-semibold cursor-pointer"
+                    className="font-semibold cursor-pointer text-sm"
                     onClick={() => router.push(`/singledocument?id=${doc._id}`)}
                   >
                     {doc.template}

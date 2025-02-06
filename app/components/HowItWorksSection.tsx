@@ -10,7 +10,7 @@ const HowItWorksSection: React.FC = () => {
         </h2>
         <div className="flex flex-wrap justify-center gap-12">
           <div
-            className="step-card p-8 bg-white shadow-lg rounded-xl transform transition-all duration-500 hover:scale-105"
+            className="step-card p-8  transform transition-all duration-500 hover:scale-105"
             data-aos="zoom-in"
           >
             <h3 className="text-sm md:text-2xl font-semibold text-blue-600 mb-4">
@@ -21,7 +21,7 @@ const HowItWorksSection: React.FC = () => {
             </p>
           </div>
           <div
-            className="step-card p-8 bg-white shadow-lg rounded-xl transform transition-all duration-500 hover:scale-105"
+            className="step-card p-8  transform transition-all duration-500 hover:scale-105"
             data-aos="zoom-in"
             data-aos-delay="200"
           >
@@ -34,7 +34,7 @@ const HowItWorksSection: React.FC = () => {
             </p>
           </div>
           <div
-            className="step-card p-8 bg-white shadow-lg rounded-xl transform transition-all duration-500 hover:scale-105"
+            className="step-card p-8  transform transition-all duration-500 hover:scale-105"
             data-aos="zoom-in"
             data-aos-delay="400"
           >
@@ -42,7 +42,8 @@ const HowItWorksSection: React.FC = () => {
               Step 3: Download & Use
             </h3>
             <p className="text-gray-600">
-              Review your document, then download and use it instantly.
+              Review your document, download and edit the text format as you
+              want and use it instantly.
             </p>
           </div>
         </div>
