@@ -17,7 +17,7 @@ export async function GET(
 
     if (!document) {
       return NextResponse.json(
-        { error: "Document not found" },
+        { error: "Documents not found" },
         { status: 404 }
       );
     }
