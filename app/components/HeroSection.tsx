@@ -1,7 +1,19 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const HeroSection: React.FC = () => {
+  const router = useRouter();
+
+  const handleButtonClick = () => {
+    const token = localStorage.getItem("LegalDoc-token");
+    if (token) {
+      router.push("/generate-doc");
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <section
       className="relative bg-[#2C3E50] text-white py-20" // Dark Blue/Charcoal background color for a legal feel
@@ -26,7 +38,7 @@ const HeroSection: React.FC = () => {
 
           <button
             className="bg-blue-600 text-white px-8 py-4 rounded-lg shadow-lg hover:bg-blue-700 transition duration-300"
-            onClick={() => (window.location.href = "/generate-doc")}
+            onClick={handleButtonClick}
           >
             Create Document
           </button>

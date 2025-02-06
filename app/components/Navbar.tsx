@@ -96,7 +96,7 @@ const Navbar: React.FC = () => {
         {isMobileMenuOpen && (
           <div
             ref={mobileMenuRef}
-            className="md:hidden bg-black fixed top-16 left-0 w-full h-screen text-lg font-semibold text-white flex flex-col space-y-3 p-4 z-50"
+            className="md:hidden bg-black fixed top-16 left-0 w-full h-fit text-lg font-semibold text-white flex flex-col space-y-3 p-4 z-50"
           >
             <Link
               href="/"
@@ -129,8 +129,11 @@ const Navbar: React.FC = () => {
 
             {isLoggedIn && (
               <button
-                className="block text-sm px-4 py-2 hover:bg-gray-700 "
-                onClick={handleLogout} // Log out the user when clicked
+                className="block text-sm px-4 py-2 hover:bg-gray-700"
+                onClick={() => {
+                  handleLogout(); // Log out the user when clicked
+                  setIsMobileMenuOpen(false); // Close menu when clicked
+                }}
               >
                 Log Out
               </button>
