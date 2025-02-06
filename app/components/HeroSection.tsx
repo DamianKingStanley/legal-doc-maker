@@ -24,14 +24,14 @@ const HeroSection: React.FC = () => {
       <div className="container mx-auto px-6 lg:px-20 relative flex flex-col lg:flex-row items-center">
         {/* Left Side - Text & Button */}
         <div className="lg:w-1/2 text-left">
-          <h1 className="text-5xl font-bold text-white leading-tight mb-6">
+          <h1 className="text-3xl md:text-4x1 font-bold text-white leading-tight mb-6">
             AI Legal Document Creator
           </h1>
-          <p className="text-xl text-gray-300 mb-8">
+          <p className="text-sm text-gray-300 mb-8">
             Effortlessly create legal documents in seconds using the power of
             AI.
           </p>
-          <p className="text-lg text-gray-200 mb-6">
+          <p className="text-sm text-gray-300 mb-6">
             Whether you&apos;re drafting contracts, agreements, or other legal
             papers, our AI technology makes it fast, easy, and accurate.
           </p>

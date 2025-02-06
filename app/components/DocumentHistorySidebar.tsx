@@ -48,7 +48,7 @@ export default function DocumentHistorySidebar({
       {!isOpen && (
         <button
           onClick={onOpen}
-          className="fixed top-20 bg-transparent left-1 text-white p-2  shadow-lg z-50"
+          className=" top-20 bg-transparent left-1 text-white p-2  shadow-lg z-50"
         >
           <Menu className="w-6 h-6" />
         </button>

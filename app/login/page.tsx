@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 export default function Login() {
@@ -11,7 +11,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(""); // State for error message
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +20,8 @@ export default function Login() {
 
     try {
       const { data } = await axios.post("/api/auth/login", { email, password });
-      router.push("/generate-doc");
+      // router.push("/generate-doc");
+      window.location.href = "/generate-doc";
       localStorage.setItem("LegalDoc-token", data.token);
     } catch (error: unknown) {
       console.error("Login error:", error);
@@ -38,10 +39,10 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white text-black">
+    <div className="flex items-center justify-center min-h-fit py-10 bg-white text-black">
       <div className="shadow-lg rounded-xl p-8 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
-          Login
+        <h2 className="text-2x1 text-gray-800 text-center mb-6">
+          Sign In to Continue
         </h2>
 
         {/* Error Message Display */}
