@@ -4,13 +4,12 @@ import Document from "@/src/models/Document";
 
 export async function GET(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     await connectToDatabase();
 
-    // Ensure params is awaited properly
-    const params = await context.params;
+    // Get the document ID from params
     const { id } = params;
 
     // Fetch the document by ID
