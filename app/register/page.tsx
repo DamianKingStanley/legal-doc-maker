@@ -31,7 +31,7 @@ export default function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-fit bg-white py-10 text-black">
+    <div className="flex  min-h-screen bg-white py-10 text-black">
       <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
         <h2 className="text-2xl  text-center text-gray-800">
           Fill in the form to Get Started

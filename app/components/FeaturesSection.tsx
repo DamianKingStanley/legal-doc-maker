@@ -4,7 +4,7 @@ import { FaRocket, FaCheckCircle, FaUser } from "react-icons/fa";
 
 const FeaturesSection: React.FC = () => {
   return (
-    <section className="py-20 text-black bg-gray-100 ">
+    <section className="py-20 text-black bg-white ">
       <div className="container mx-auto px-6">
         <h2 className="text-lg md:text-3xl text-center font-semibold mb-12 text-gray-800">
           Our Key Features
