@@ -114,14 +114,14 @@ export default function GenerateDocument() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       {/* Header */}
-      <div className="bg-[#2C3E50] text-white text-center p-4 flex justify-normal">
+      <div className="bg-[#2C3E50] text-white text-center p-4 flex justify-between">
         <DocumentHistorySidebar
           id="document-history-sidebar"
           isOpen={isSidebarOpen}
           onClose={() => setSidebarOpen(false)}
           onOpen={() => setSidebarOpen(true)}
         />
-        <p className="text-sm text-right">
+        <p className="text-sm text-right mt-5">
           Generate legal documents in seconds
         </p>
       </div>

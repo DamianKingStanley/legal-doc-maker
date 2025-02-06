@@ -48,7 +48,7 @@ export default function DocumentHistorySidebar({
       {!isOpen && (
         <button
           onClick={onOpen}
-          className=" top-20 bg-transparent left-1 text-white p-2  shadow-lg z-50"
+          className=" top-20 bg-[#2C3E50] text-white left-1  p-2  shadow-lg z-50"
         >
           <Menu className="w-6 h-6" />
         </button>
@@ -60,7 +60,7 @@ export default function DocumentHistorySidebar({
           isOpen ? "translate-x-0" : "-translate-x-full"
         } z-50 md:w-96`}
       >
-        <div className="p-4 border-b flex justify-between items-center bg-gray-100">
+        <div className="p-4 border-b flex justify-between items-center bg-[#2C3E50]">
           <h2 className="text-sm md:text-lg font-semibold">Document History</h2>
           <button
             onClick={onClose}
