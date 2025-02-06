@@ -5,10 +5,10 @@ const HowItWorksSection: React.FC = () => {
   return (
     <section className="py-20 bg-gray-50 text-center">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-semibold mb-12 text-gray-800">
+        <h2 className="text-3xl font-semibold mb-2 text-gray-800">
           How It Works
         </h2>
-        <div className="flex flex-wrap justify-center gap-12">
+        <div className="flex flex-wrap justify-center gap-5">
           <div
             className="step-card p-8  transform transition-all duration-500 hover:scale-105"
             data-aos="zoom-in"

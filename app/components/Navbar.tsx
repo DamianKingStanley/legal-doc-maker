@@ -3,14 +3,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const mobileMenuRef = useRef<HTMLDivElement | null>(null);
   const navbarRef = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("LegalDoc-token");
@@ -42,7 +42,8 @@ const Navbar: React.FC = () => {
   const subscriptionLink = "/subscription";
   const handleLogout = () => {
     localStorage.removeItem("LegalDoc-token");
-    router.push("/"); // Redirect to subscription page or any other page
+    // router.push("/");
+    window.location.href = "/";
 
     setIsLoggedIn(false);
   };

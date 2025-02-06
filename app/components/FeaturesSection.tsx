@@ -9,12 +9,12 @@ const FeaturesSection: React.FC = () => {
         <h2 className="text-lg md:text-3xl text-center font-semibold mb-12 text-gray-800">
           Our Key Features
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-1 md:gap-7">
           <div className="feature-card p-8 text-black  " data-aos="fade-up">
             <div className="text-center mb-4">
               <FaRocket className="text-3xl md:text-5xl text-center text-blue-600" />
             </div>
-            <h3 className="text-xl text-black font-semibold mb-4">
+            <h3 className="text-xl text-black font-semibold ">
               Fast Document Creation
             </h3>
             <p className="text-gray-600 ">
@@ -41,9 +41,7 @@ const FeaturesSection: React.FC = () => {
             <div className="text-center mb-4">
               <FaUser className="text-3xl md:text-5xl text-purple-500" />
             </div>
-            <h3 className="text-xl font-semibold mb-4">
-              User-Friendly Interface
-            </h3>
+            <h3 className="text-xl font-semibold ">User-Friendly Interface</h3>
             <p className="text-gray-600">
               Our platform is designed to be intuitive and easy to use for
               everyone, no legal expertise needed.
