@@ -105,7 +105,7 @@ export default function Register() {
                   id="fullname"
                   type="text"
                   autoComplete="name"
-                  placeholder="John Doe"
+                  placeholder="Quortek Company"
                   value={fullname}
                   onChange={(e) => setFullname(e.target.value)}
                   required
@@ -124,7 +124,7 @@ export default function Register() {
                   id="email"
                   type="email"
                   autoComplete="email"
-                  placeholder="your@email.com"
+                  placeholder="quortekcompany@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -161,9 +161,9 @@ export default function Register() {
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
-                <p className="mt-2 text-sm text-gray-500">
+                {/* <p className="mt-2 text-sm text-gray-500">
                   Use 8+ characters with a mix of letters, numbers & symbols
-                </p>
+                </p> */}
               </div>
 
               <button
