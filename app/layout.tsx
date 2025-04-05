@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +19,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Legal Action Document",
+  title: "LegalGenius",
   description: "Generate legal documents in seconds",
 };
 
@@ -35,7 +35,7 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );

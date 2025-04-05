@@ -1,95 +1,110 @@
 "use client";
 import React, { useState } from "react";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
-const FAQSection: React.FC = () => {
+const FAQSection = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const toggleAccordion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const faqs = [
+    {
+      question: "Is this service legally valid?",
+      answer:
+        "Yes, all documents are drafted to comply with standard legal requirements. However, we recommend having a lawyer review documents for complex cases or specific jurisdictions.",
+    },
+    {
+      question: "Can I cancel my subscription anytime?",
+      answer:
+        "You can cancel auto-renewal at any time. Your subscription will remain active until the end of the current billing period.",
+    },
+    {
+      question: "Are the documents customizable?",
+      answer:
+        "Absolutely. Each document can be fully customized with your specific details, clauses, and terms. Our editor makes it easy to modify templates.",
+    },
+    {
+      question: "What happens if I forget to renew my subscription?",
+      answer:
+        "We'll send multiple reminders before your subscription expires. If it lapses, you'll revert to our free plan but won't lose any documents you've already generated.",
+    },
+    {
+      question: "Can I get a refund if I'm not satisfied?",
+      answer:
+        "We offer a 30-day money-back guarantee on all subscriptions. Contact our support team and we'll process your refund, no questions asked.",
+    },
+    {
+      question: "How often are templates updated?",
+      answer:
+        "Our legal team reviews and updates templates quarterly to reflect changing laws. You'll automatically get access to all template updates.",
+    },
+  ];
+
   return (
-    <section className="py-20 bg-gray-100 text-black">
-      <div className="container mx-auto px-6">
-        <h2 className="text-2xl text-black md:text-3xl font-semibold mb-12">
-          Frequently Asked Questions
-        </h2>
-        <div className="space-y-6">
-          <div
-            className="faq-item bg-white p-6 shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
-            onClick={() => toggleAccordion(0)}
-          >
-            <h4 className="text-sm md:text-xl font-semibold mb-4 text-gray-800">
-              Is this service legally valid? {activeIndex === 0 ? "▼" : "▲"}
-            </h4>
-            {activeIndex === 0 && (
-              <p className="text-gray-600">
-                Yes, the documents are legally sound and compliant with standard
-                regulations.
-              </p>
-            )}
-          </div>
-          <div
-            className="faq-item bg-white p-6 shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
-            onClick={() => toggleAccordion(1)}
-          >
-            <h4 className="text-sm md:text-xl font-semibold mb-4 text-gray-800">
-              Can I cancel my subscription anytime?{" "}
-              {activeIndex === 1 ? "▼" : "▲"}
-            </h4>
-            {activeIndex === 1 && (
-              <p className="text-gray-600">
-                You may decide not to renew your subscription with us after. But
-                for the current subscription, you cannot cancel it.
-              </p>
-            )}
-          </div>
-          <div
-            className="faq-item bg-white p-6 shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
-            onClick={() => toggleAccordion(2)}
-          >
-            <h4 className="text-sm md:text-xl font-semibold mb-4 text-gray-800">
-              Are the documents customizable? {activeIndex === 2 ? "▼" : "▲"}
-            </h4>
-            {activeIndex === 2 && (
-              <p className="text-gray-600">
-                Yes, you can customize each document by adding your own clauses
-                and details.
-              </p>
-            )}
-          </div>
+    <section className="relative py-20 bg-white overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
 
-          <div
-            className="faq-item bg-white p-6 shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
-            onClick={() => toggleAccordion(3)}
-          >
-            <h4 className="text-sm md:text-xl font-semibold mb-4 text-gray-800">
-              What happens if I forget to renew my subscription?{" "}
-              {activeIndex === 3 ? "▼" : "▲"}
-            </h4>
-            {activeIndex === 3 && (
-              <p className="text-gray-600">
-                If you forget to renew, your subscription will expire, and you
-                will lose access to premium features until you renew it.
-              </p>
-            )}
-          </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <span className="inline-block px-3 py-1 text-sm font-semibold text-blue-600 bg-blue-100 rounded-full mb-4">
+            Need Help?
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Find quick answers to common questions about our service
+          </p>
+        </div>
 
-          <div
-            className="faq-item bg-white p-6 shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
-            onClick={() => toggleAccordion(5)}
-          >
-            <h4 className="text-sm md:text-xl font-semibold mb-4 text-gray-800">
-              Can I get a refund if I&apos;m not satisfied?{" "}
-              {activeIndex === 5 ? "▼" : "▲"}
-            </h4>
-            {activeIndex === 5 && (
-              <p className="text-gray-600">
-                Refunds are available within 30 days of purchase, depending on
-                the specific terms and conditions of your subscription.
-              </p>
-            )}
-          </div>
+        <div className="max-w-3xl mx-auto space-y-4">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className={`border border-gray-200 rounded-xl overflow-hidden transition-all duration-300 ${
+                activeIndex === index ? "shadow-md" : "hover:shadow-sm"
+              }`}
+            >
+              <button
+                className="w-full flex justify-between items-center p-6 text-left focus:outline-none"
+                onClick={() => toggleAccordion(index)}
+                aria-expanded={activeIndex === index}
+                aria-controls={`faq-content-${index}`}
+              >
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {faq.question}
+                </h3>
+                {activeIndex === index ? (
+                  <FiChevronUp className="text-gray-500 text-xl" />
+                ) : (
+                  <FiChevronDown className="text-gray-500 text-xl" />
+                )}
+              </button>
+
+              <div
+                id={`faq-content-${index}`}
+                className={`px-6 pb-6 pt-0 text-gray-600 transition-all duration-300 ${
+                  activeIndex === index ? "block" : "hidden"
+                }`}
+                style={{
+                  maxHeight: activeIndex === index ? "500px" : "0",
+                  overflow: "hidden",
+                }}
+              >
+                <p>{faq.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 text-center">
+          <p className="text-gray-600 mb-6">Still have questions?</p>
+          <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-800 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all">
+            Contact Support
+          </button>
         </div>
       </div>
     </section>
