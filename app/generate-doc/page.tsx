@@ -114,7 +114,7 @@ export default function GenerateDocument() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col">
       {/* Header */}
-      <header className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-4 shadow-md mt-10">
+      <header className="bg-white text-black p-4 shadow-md mt-10">
         <div className="container mx-auto flex justify-between items-center">
           <button
             onClick={() => setSidebarOpen(true)}
