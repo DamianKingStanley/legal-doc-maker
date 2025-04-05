@@ -1,13 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import {
-  FaCheck,
-  FaCrown,
-  FaBuilding,
-  FaRegStar,
-  FaStar,
-} from "react-icons/fa";
+import { FaCheck, FaCrown, FaBuilding, FaRegStar } from "react-icons/fa";
 
 const PricingSection: React.FC = () => {
   const plans = [
